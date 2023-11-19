@@ -8,8 +8,8 @@ public class Video {
     private String description;
     private String url;
     private Instant creationDate;
-    private Long viewCount;
-    private Long favoriteCount;
+    private Long views;
+    private Long likes;
     private User creator;
     private Category category;
 

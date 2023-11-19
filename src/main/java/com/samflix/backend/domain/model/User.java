@@ -5,6 +5,6 @@ import java.util.Set;
 public class User {
 
     private String username;
-    private Set<Video> favorites;
+    private Set<Video> likes;
 
 }
