@@ -1,4 +1,4 @@
-package com.samflix.backend.api.controller;
+package com.samflix.backend.api.controller.video;
 
 import com.samflix.backend.domain.model.Report;
 import com.samflix.backend.domain.model.Video;
