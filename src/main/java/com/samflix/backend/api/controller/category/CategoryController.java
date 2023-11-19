@@ -1,4 +1,4 @@
-package com.samflix.backend.api.controller;
+package com.samflix.backend.api.controller.category;
 
 import com.samflix.backend.domain.model.Category;
 import org.springframework.data.domain.Page;
