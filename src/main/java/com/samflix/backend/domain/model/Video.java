@@ -7,6 +7,7 @@ public class Video {
     private String title;
     private String description;
     private String url;
+    private VideoStatus status;
     private Instant creationDate;
     private Long views;
     private Long likes;
