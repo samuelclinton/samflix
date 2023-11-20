@@ -2,48 +2,51 @@ package com.samflix.backend.api.controller.video;
 
 import com.samflix.backend.domain.model.Report;
 import com.samflix.backend.domain.model.Video;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/v1/videos")
-public class VideoControllerV1 implements VideoController {
+import static com.samflix.backend.utils.OpenApiSchemaExamples.UUID_EXAMPLE;
 
-    @Override
-    @PostMapping
-    public Video create() {
-        return null;
-    }
+@Tag(name = "Videos")
+public interface VideoControllerV1 {
 
-    @Override
-    @PutMapping("/{videoId}")
-    public Video update(@PathVariable String videoId) {
-        return null;
-    }
+    @Operation(
+            summary = "Cria um vídeo",
+            description = "Cria um vídeo"
+    )
+    Video create();
 
-    @Override
-    @GetMapping("/{videoId}")
-    public Video play(@PathVariable String videoId) {
-        return null;
-    }
+    @Operation(
+            summary = "Atualiza um vídeo",
+            description = "Atualiza um vídeo"
+    )
+    Video update(@Parameter(description = "O ID de um vídeo", example = UUID_EXAMPLE) String videoId);
 
-    @Override
-    @GetMapping
-    public Page<Video> list(Pageable pageable) {
-        return null;
-    }
+    @Operation(
+            summary = "Busca um vídeo",
+            description = "Busca um vídeo"
+    )
+    Video play(@Parameter(description = "O ID de um vídeo", example = UUID_EXAMPLE) String videoId);
 
-    @Override
-    @DeleteMapping("/{videoId}")
-    public void delete(@PathVariable String videoId) {
+    @Operation(
+            summary = "Lista os vídeos",
+            description = "Lista os vídeos"
+    )
+    Page<Video> list(Pageable pageable);
 
-    }
+    @Operation(
+            summary = "Exclui um vídeo",
+            description = "Exclui um vídeo"
+    )
+    void delete(@Parameter(description = "O ID de um vídeo", example = UUID_EXAMPLE) String videoId);
 
-    @Override
-    @GetMapping("/statistics")
-    public Report statistics() {
-        return null;
-    }
+    @Operation(
+            summary = "Exibe um relatório",
+            description = "Exibe um relatório de estatísticas sobre os vídeos"
+    )
+    Report statistics();
 
 }
