@@ -1,36 +1,36 @@
 package com.samflix.backend.api.controller.category;
 
 import com.samflix.backend.domain.model.Category;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/v1/categories")
-public class CategoryControllerV1 implements CategoryController {
+@Tag(name = "Categories")
+public interface CategoryControllerV1 {
 
-    @Override
-    @PostMapping
-    public Category create() {
-        return null;
-    }
+    @Operation(
+            summary = "Cria uma categoria",
+            description = "Cria uma categoria"
+    )
+    Category create();
 
-    @Override
-    @PutMapping("/{categoryId}")
-    public Category update(@PathVariable String categoryId) {
-        return null;
-    }
+    @Operation(
+            summary = "Atualiza uma categoria",
+            description = "Atualiza uma categoria"
+    )
+    Category update(String categoryId);
 
-    @Override
-    @GetMapping
-    public Page<Category> list(Pageable pageable) {
-        return null;
-    }
+    @Operation(
+            summary = "Lista as categorias",
+            description = "Lista as categorias"
+    )
+    Page<Category> list(Pageable pageable);
 
-    @Override
-    @DeleteMapping("/{categoryId}")
-    public void delete(@PathVariable String categoryId) {
-
-    }
+    @Operation(
+            summary = "Exclui uma categoria",
+            description = "Exclui uma categoria"
+    )
+    void delete(String categoryId);
 
 }
