@@ -18,6 +18,7 @@ public class SpringDocConfig {
         tags.add(new Tag().name("Videos").description("Gerencia os vídeos"));
         tags.add(new Tag().name("Categories").description("Gerencia as categorias"));
         tags.add(new Tag().name("Users").description("Gerencia os usuários"));
+        tags.add(new Tag().name("Status").description("Prove informação sobre o status do serviço"));
         return new OpenAPI()
                 .info(new Info()
                         .title("Samflix")
