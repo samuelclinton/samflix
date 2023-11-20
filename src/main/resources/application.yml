@@ -1,3 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/samflix
 springdoc:
   swagger-ui:
     path: /docs.html
