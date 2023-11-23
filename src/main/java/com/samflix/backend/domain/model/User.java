@@ -1,5 +1,7 @@
 package com.samflix.backend.domain.model;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -10,6 +12,8 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
+@EqualsAndHashCode
 @Document
 public class User {
 
