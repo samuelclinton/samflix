@@ -1,6 +1,7 @@
 package com.samflix.backend.domain.repository;
 
 import com.samflix.backend.domain.model.Category;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ class CategoryRepositoryIT {
 
     @BeforeEach
     public void setup() {
+        categoryRepository.deleteAll().block();
+    }
+
+    @AfterEach
+    public void destroy() {
         categoryRepository.deleteAll().block();
     }
 
