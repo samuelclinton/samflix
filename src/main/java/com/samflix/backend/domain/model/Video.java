@@ -1,32 +1,36 @@
 package com.samflix.backend.domain.model;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Getter
 @Setter
-@Document(collection = "video")
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Document(collection = "videos")
 public class Video {
 
     @Id
+    @EqualsAndHashCode.Include
     private String id;
+
+    @EqualsAndHashCode.Include
+    private UUID file;
 
     private String title;
     private String description;
-    private String url;
     private VideoStatus status;
     private Instant creationDate;
     private Long views;
     private Long likes;
-
-    private User creator;
-
-    @DBRef
-    private Category category;
+    private String creatorUsername;
+    private String category;
 
 }
