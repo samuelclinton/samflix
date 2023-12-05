@@ -1,6 +1,5 @@
 package com.samflix.backend.domain.model;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,13 +11,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @Builder
 @EqualsAndHashCode
-@Document
+@Document(collection = "categories")
 public class Category {
 
     @Id
     private String id;
-
-    @NotBlank
     private String name;
 
 }
