@@ -11,11 +11,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @Builder
 @EqualsAndHashCode
-@Document(collection = "users")
-public class User {
+@Document(collection = "likes")
+public class Like {
 
     @Id
     private String id;
-    private String username;
+    private String userId;
+    private String videoId;
+    private String videoTitle;
+    private String videoCategory;
 
 }
