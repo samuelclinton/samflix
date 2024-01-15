@@ -2,7 +2,14 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/samflix
+      database: "samflix"
+      auto-index-creation: true
+
 springdoc:
   swagger-ui:
     path: /docs.html
     default-models-expand-depth: 0
+
+logging:
+  level:
+    org.springframework.data.mongodb: debug
