@@ -1,8 +1,8 @@
 package com.samflix.backend.domain.exception;
 
-public class BusinessLogicException extends RuntimeException {
+public abstract class BusinessLogicException extends RuntimeException {
 
-    public BusinessLogicException(String message) {
+    protected BusinessLogicException(String message) {
         super(message);
     }
 
