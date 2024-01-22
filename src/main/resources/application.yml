@@ -13,3 +13,4 @@ springdoc:
 logging:
   level:
     org.springframework.data.mongodb: debug
+    web: debug
