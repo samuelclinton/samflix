@@ -1,25 +1,31 @@
 package com.samflix.backend.api.controller.video;
 
+import com.samflix.backend.api.controller.model.NewVideoDto;
+import com.samflix.backend.api.controller.model.UpdateVideoDto;
 import com.samflix.backend.domain.model.Report;
 import com.samflix.backend.domain.model.Video;
+import com.samflix.backend.domain.service.VideoService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/v1/videos")
 public class VideoControllerV1Impl implements VideoControllerV1 {
 
+    private static final String JSON = MediaType.APPLICATION_JSON_VALUE;
+
+    private final VideoService videoService;
+
     @Override
-    @PostMapping(
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = JSON)
     @ResponseStatus(HttpStatus.CREATED)
-    public Video create() {
-        return null;
+    public Mono<Video> create(@Valid NewVideoDto newVideoDto) {
+        return videoService.create(newVideoDto);
     }
 
     @Override
@@ -29,8 +35,8 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseStatus(HttpStatus.OK)
-    public Video update(@PathVariable String videoId) {
-        return null;
+    public Mono<Video> update(@PathVariable String videoId, @RequestBody @Valid UpdateVideoDto updateVideoDto) {
+        return videoService.update(videoId, updateVideoDto);
     }
 
     @Override
@@ -55,8 +61,8 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
     @Override
     @DeleteMapping("/{videoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable String videoId) {
-
+    public Mono<Void> delete(@PathVariable String videoId) {
+        return videoService.delete(videoId);
     }
 
     @Override
@@ -67,6 +73,10 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
     @ResponseStatus(HttpStatus.OK)
     public Report statistics() {
         return null;
+    }
+
+    public VideoControllerV1Impl(VideoService videoService) {
+        this.videoService = videoService;
     }
 
 }

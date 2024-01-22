@@ -1,18 +1,17 @@
 package com.samflix.backend.domain.model;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import com.samflix.backend.api.controller.model.NewVideoDto;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Document(collection = "videos")
 public class Video {
@@ -21,16 +20,23 @@ public class Video {
     @EqualsAndHashCode.Include
     private String id;
 
-    @EqualsAndHashCode.Include
-    private UUID file;
-
+    private Instant creationDate;
+    private String file;
     private String title;
     private String description;
-    private VideoStatus status;
-    private Instant creationDate;
-    private Long views;
-    private Long likes;
+    private VideoStatus status = VideoStatus.PUBLISHED;
+    private Long views = 0L;
+    private Long likes = 0L;
     private String creatorUsername;
     private String category;
+
+    public Video(NewVideoDto newVideoDto, String fileName) {
+        this.creationDate = Instant.now();
+        this.file = fileName;
+        this.title = newVideoDto.getTitle();
+        this.description = newVideoDto.getDescription();
+        this.creatorUsername = newVideoDto.getCreatorUsername();
+        this.category = newVideoDto.getCategory();
+    }
 
 }

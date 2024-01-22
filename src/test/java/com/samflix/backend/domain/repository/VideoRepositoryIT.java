@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataM
 import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Mono;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -99,9 +98,8 @@ class VideoRepositoryIT {
                 .id("655e64277caa1eae06196427")
                 .title("Second video")
                 .description("Second video description")
-                .file(UUID.fromString("88ec77f6-3ffc-4bfc-941a-fb0000d019b6"))
-                .status(VideoStatus.PUBLICADO)
-                .creationDate(Instant.now())
+                .file(UUID.fromString("88ec77f6-3ffc-4bfc-941a-fb0000d019b6") + ".mp4")
+                .status(VideoStatus.PUBLISHED)
                 .views(15L)
                 .likes(10L)
                 .creatorUsername(generateUser().getUsername())
@@ -135,7 +133,7 @@ class VideoRepositoryIT {
         assertThat(deletedVideo).isNull();
     }
 
-    private Video saveVideo(Video video) {
+    public Video saveVideo(Video video) {
         Mono<Video> save = videoRepository.save(video);
         Mono<Video> find = videoRepository.findById(video.getId());
         Mono<Video> mono = Mono.from(save).then(find);
