@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 
 public interface UserService {
 
-    Mono<User> get(String userId);
+    User get(String userId);
     Mono<User> create(UsernameDto usernameDto);
     Mono<User> update(String userId, UsernameDto usernameDto);
     Mono<Void> delete(String userId);

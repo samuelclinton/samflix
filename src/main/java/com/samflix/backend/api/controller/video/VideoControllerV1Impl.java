@@ -35,7 +35,7 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseStatus(HttpStatus.OK)
-    public Mono<Video> update(@PathVariable String videoId, @RequestBody @Valid UpdateVideoDto updateVideoDto) {
+    public Video update(@PathVariable String videoId, @RequestBody @Valid UpdateVideoDto updateVideoDto) {
         return videoService.update(videoId, updateVideoDto);
     }
 

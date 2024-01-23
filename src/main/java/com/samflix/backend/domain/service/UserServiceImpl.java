@@ -16,7 +16,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public Mono<User> get(String userId) {
+    public User get(String userId) {
+        return userRepository
+                .findById(userId)
+                .switchIfEmpty(Mono.error(new UserNotFoundException(userId)))
+                .block();
+    }
+
+    private Mono<User> getReactive(String userId) {
         return userRepository
                 .findById(userId)
                 .switchIfEmpty(Mono.error(new UserNotFoundException(userId)));
@@ -38,7 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Mono<User> update(String userId, UsernameDto usernameDto) {
-        return get(userId)
+        return getReactive(userId)
                 .flatMap(user -> {
                     var currentUsername = user.getUsername();
                     var newUsername = usernameDto.getUsername();
@@ -56,7 +63,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Mono<Void> delete(String userId) {
         // TODO - Implementar a lógica de excluir os vídeos e likes do usuário
-        return get(userId)
+        return getReactive(userId)
                 .flatMap(userRepository::delete);
     }
 

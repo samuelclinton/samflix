@@ -20,7 +20,7 @@ public interface VideoControllerV1 {
     Mono<Video> create(NewVideoDto newVideoDto);
 
     @Operation(summary = "Atualiza um vídeo", description = "Atualiza um vídeo")
-    Mono<Video> update(@Parameter(description = "O ID de um vídeo", example = ID_EXAMPLE) String videoId,
+    Video update(@Parameter(description = "O ID de um vídeo", example = ID_EXAMPLE) String videoId,
                  UpdateVideoDto updateVideoDto);
 
     @Operation(summary = "Busca um vídeo", description = "Busca um vídeo")
