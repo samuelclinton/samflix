@@ -2,13 +2,12 @@ package com.samflix.backend.core.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.http.MediaType;
-import org.springframework.http.codec.multipart.FilePart;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class FileContentTypeValidator implements ConstraintValidator<FileContentType, FilePart> {
+public class FileContentTypeValidator implements ConstraintValidator<FileContentType, MultipartFile> {
 
     private List<String> allowedContentTypes;
 
@@ -18,12 +17,8 @@ public class FileContentTypeValidator implements ConstraintValidator<FileContent
     }
 
     @Override
-    public boolean isValid(FilePart value, ConstraintValidatorContext constraintValidatorContext) {
-        if (value == null) {
-            return true;
-        }
-        MediaType mediaType = value.headers().getContentType();
-        return mediaType != null && this.allowedContentTypes.contains(mediaType.toString());
+    public boolean isValid(MultipartFile value, ConstraintValidatorContext constraintValidatorContext) {
+        return value == null || this.allowedContentTypes.contains(value.getContentType());
     }
 
 }

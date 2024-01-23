@@ -4,7 +4,7 @@ import com.samflix.backend.core.validation.FileContentType;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.http.codec.multipart.FilePart;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
@@ -17,6 +17,6 @@ public class NewVideoDto {
 
     @NotNull
     @FileContentType(allowed = {"video/mp4"})
-    private FilePart videoFile;
+    private MultipartFile videoFile;
 
 }
