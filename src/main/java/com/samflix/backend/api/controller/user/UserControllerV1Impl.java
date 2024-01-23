@@ -3,7 +3,6 @@ package com.samflix.backend.api.controller.user;
 import com.samflix.backend.api.controller.model.LikeDto;
 import com.samflix.backend.api.controller.model.UsernameDto;
 import com.samflix.backend.domain.model.User;
-import com.samflix.backend.domain.service.LikeService;
 import com.samflix.backend.domain.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,6 @@ public class UserControllerV1Impl implements UserControllerV1 {
     private static final String JSON = MediaType.APPLICATION_JSON_VALUE;
 
     private final UserService userService;
-    private final LikeService likeService;
 
     @Override
     @PostMapping(consumes = JSON, produces = JSON)
@@ -53,19 +51,18 @@ public class UserControllerV1Impl implements UserControllerV1 {
     @PutMapping(value = "/{userId}/likes", consumes = JSON, produces = JSON)
     @ResponseStatus(HttpStatus.OK)
     public void likeVideo(@PathVariable String userId, @RequestBody @Valid LikeDto likeDto) {
-        likeService.add(userId, likeDto);
+        userService.like(userId, likeDto);
     }
 
     @Override
     @DeleteMapping("/{userId}/likes/{videoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void dislikeVideo(@PathVariable String userId, @PathVariable String videoId) {
-        likeService.remove(userId, videoId);
+        userService.dislike(userId, videoId);
     }
 
-    public UserControllerV1Impl(UserService userService, LikeService likeService) {
+    public UserControllerV1Impl(UserService userService) {
         this.userService = userService;
-        this.likeService = likeService;
     }
 
 }

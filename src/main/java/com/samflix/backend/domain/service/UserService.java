@@ -1,5 +1,6 @@
 package com.samflix.backend.domain.service;
 
+import com.samflix.backend.api.controller.model.LikeDto;
 import com.samflix.backend.api.controller.model.UsernameDto;
 import com.samflix.backend.domain.model.User;
 import reactor.core.publisher.Mono;
@@ -10,5 +11,9 @@ public interface UserService {
     Mono<User> create(UsernameDto usernameDto);
     Mono<User> update(String userId, UsernameDto usernameDto);
     Mono<Void> delete(String userId);
+
+    void like(String userId, LikeDto likeDto);
+    void dislike(String userId, String videoId);
+    void deleteAllLikesByUser(User user);
 
 }
