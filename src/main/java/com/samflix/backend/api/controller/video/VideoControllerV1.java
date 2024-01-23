@@ -33,6 +33,6 @@ public interface VideoControllerV1 {
     Mono<Void> delete(@Parameter(description = "O ID de um vídeo", example = ID_EXAMPLE) String videoId);
 
     @Operation(summary = "Exibe um relatório", description = "Exibe um relatório de estatísticas sobre os vídeos")
-    Report statistics();
+    Mono<Report> statistics();
 
 }

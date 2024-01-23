@@ -36,10 +36,7 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
     }
 
     @Override
-    @GetMapping(
-            value = "/{videoId}",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @GetMapping(value = "/{videoId}", produces = JSON)
     @ResponseStatus(HttpStatus.OK)
     public Video play(@PathVariable String videoId) {
         return null;
@@ -60,10 +57,10 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
     }
 
     @Override
-    @GetMapping(value = "/statistics", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/statistics", produces = JSON)
     @ResponseStatus(HttpStatus.OK)
-    public Report statistics() {
-        return null;
+    public Mono<Report> statistics() {
+        return videoService.getVideoStats();
     }
 
     public VideoControllerV1Impl(VideoService videoService) {

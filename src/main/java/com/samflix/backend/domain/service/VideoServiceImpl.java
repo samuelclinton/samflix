@@ -3,8 +3,10 @@ package com.samflix.backend.domain.service;
 import com.samflix.backend.api.controller.model.NewVideoDto;
 import com.samflix.backend.api.controller.model.UpdateVideoDto;
 import com.samflix.backend.domain.exception.VideoNotFoundException;
+import com.samflix.backend.domain.model.Report;
 import com.samflix.backend.domain.model.User;
 import com.samflix.backend.domain.model.Video;
+import com.samflix.backend.domain.model.ViewStats;
 import com.samflix.backend.domain.repository.VideoRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -73,6 +75,19 @@ public class VideoServiceImpl implements VideoService {
                     })
                     .subscribe();
         }
+    }
+
+    @Override
+    public Mono<Report> getVideoStats() {
+        Mono<Long> totalVideos = videoRepository.count();
+        Mono<Long> likedVideos = videoRepository.countByLikesGreaterThan(0L);
+        Mono<ViewStats> viewStats = videoRepository.viewStats();
+
+        return Mono.zip(totalVideos, likedVideos, viewStats)
+                .map(tuple -> new Report(tuple.getT1(),
+                        tuple.getT2(),
+                        tuple.getT3().getTotalViews(),
+                        tuple.getT3().getAverageViews()));
     }
 
     public VideoServiceImpl(UserService userService, VideoRepository videoRepository) {
