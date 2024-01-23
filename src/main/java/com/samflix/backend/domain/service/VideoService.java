@@ -7,9 +7,11 @@ import reactor.core.publisher.Mono;
 
 public interface VideoService {
 
-    Mono<Video> get(String videoId);
+    Video get(String videoId);
+    void addLike(Video video);
+    void removeLike(Video video);
     Mono<Video> create(NewVideoDto newVideoDto);
-    Mono<Video> update(String videoId, UpdateVideoDto updateVideoDto);
+    Video update(String videoId, UpdateVideoDto updateVideoDto);
     Mono<Void> delete(String videoId);
 
 }

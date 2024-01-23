@@ -1,7 +1,9 @@
 package com.samflix.backend.api.controller.user;
 
+import com.samflix.backend.api.controller.model.LikeDto;
 import com.samflix.backend.api.controller.model.UsernameDto;
 import com.samflix.backend.domain.model.User;
+import com.samflix.backend.domain.service.LikeService;
 import com.samflix.backend.domain.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ public class UserControllerV1Impl implements UserControllerV1 {
     private static final String JSON = MediaType.APPLICATION_JSON_VALUE;
 
     private final UserService userService;
+    private final LikeService likeService;
 
     @Override
     @PostMapping(consumes = JSON, produces = JSON)
@@ -35,7 +38,7 @@ public class UserControllerV1Impl implements UserControllerV1 {
     @Override
     @GetMapping(value = "/{userId}", produces = JSON)
     @ResponseStatus(HttpStatus.OK)
-    public Mono<User> get(@PathVariable String userId) {
+    public User get(@PathVariable String userId) {
         return userService.get(userId);
     }
 
@@ -49,19 +52,20 @@ public class UserControllerV1Impl implements UserControllerV1 {
     @Override
     @PutMapping(value = "/{userId}/likes", consumes = JSON, produces = JSON)
     @ResponseStatus(HttpStatus.OK)
-    public Mono<Void> likeVideo(@PathVariable String userId) {
-        return Mono.empty();
+    public void likeVideo(@PathVariable String userId, @RequestBody @Valid LikeDto likeDto) {
+        likeService.add(userId, likeDto);
     }
 
     @Override
     @DeleteMapping("/{userId}/likes/{videoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> dislikeVideo(@PathVariable String userId, @PathVariable String videoId) {
-        return Mono.empty();
+    public void dislikeVideo(@PathVariable String userId, @PathVariable String videoId) {
+        likeService.remove(userId, videoId);
     }
 
-    public UserControllerV1Impl(UserService userService) {
+    public UserControllerV1Impl(UserService userService, LikeService likeService) {
         this.userService = userService;
+        this.likeService = likeService;
     }
 
 }

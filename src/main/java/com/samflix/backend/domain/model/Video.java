@@ -30,6 +30,14 @@ public class Video {
     private String creatorUsername;
     private String category;
 
+    public void addLike() {
+        this.likes++;
+    }
+
+    public void removeLike() {
+        this.likes--;
+    }
+
     public Video(NewVideoDto newVideoDto, String fileName) {
         this.creationDate = Instant.now();
         this.file = fileName;

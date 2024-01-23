@@ -18,7 +18,6 @@ public class Like {
     private String id;
     private String userId;
     private String videoId;
-    private String videoTitle;
     private String videoCategory;
 
 }

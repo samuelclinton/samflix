@@ -6,7 +6,6 @@ import com.samflix.backend.domain.exception.VideoNotFoundException;
 import com.samflix.backend.domain.model.Video;
 import com.samflix.backend.domain.repository.VideoRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -17,14 +16,25 @@ public class VideoServiceImpl implements VideoService {
     private final VideoRepository videoRepository;
 
     @Override
-    public Mono<Video> get(String videoId) {
-        return videoRepository
-                .findById(videoId)
-                .switchIfEmpty(Mono.error(new VideoNotFoundException(videoId)));
+    public Video get(String videoId) {
+        return videoRepository.findById(videoId)
+                .switchIfEmpty(Mono.error(new VideoNotFoundException(videoId)))
+                .block();
     }
 
     @Override
-    @Transactional
+    public void addLike(Video video) {
+        video.addLike();
+        videoRepository.save(video).block();
+    }
+
+    @Override
+    public void removeLike(Video video) {
+        video.removeLike();
+        videoRepository.save(video).block();
+    }
+
+    @Override
     public Mono<Video> create(NewVideoDto newVideoDto) {
         // TODO - Implementar envio de vídeos local para storage com retorno de um url/uuid
         String nomeArquivo = UUID.randomUUID() + ".mp4";
@@ -33,20 +43,19 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    @Transactional
-    public Mono<Video> update(String videoId, UpdateVideoDto updateVideoDto) {
-        return get(videoId)
-                .flatMap(video -> {
-                    video.setTitle(updateVideoDto.getTitle());
-                    video.setDescription(updateVideoDto.getDescription());
-                    video.setCategory(updateVideoDto.getCategory());
-                    return videoRepository.save(video);
-                });
+    public Video update(String videoId, UpdateVideoDto updateVideoDto) {
+        Video video = get(videoId);
+        video.setTitle(updateVideoDto.getTitle());
+        video.setDescription(updateVideoDto.getDescription());
+        video.setCategory(updateVideoDto.getCategory());
+        return videoRepository.save(video).block();
     }
 
     @Override
     public Mono<Void> delete(String videoId) {
-        return get(videoId).flatMap(videoRepository::delete);
+        return videoRepository.findById(videoId)
+                .switchIfEmpty(Mono.error(new VideoNotFoundException(videoId)))
+                .flatMap(videoRepository::delete);
     }
 
     public VideoServiceImpl(VideoRepository videoRepository) {
