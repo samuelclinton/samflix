@@ -12,7 +12,6 @@ import reactor.core.publisher.Mono;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import static com.samflix.backend.utils.CategoryHelper.*;
 import static com.samflix.backend.utils.UserHelper.generateUser;
 import static com.samflix.backend.utils.VideoHelper.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,7 +32,6 @@ class VideoRepositoryIT {
     void shouldSaveVideo() {
 
         var creator = generateUser();
-        var category = generateCategory();
         var video = saveVideo(generateVideo());
 
         assertThat(video)
@@ -53,7 +51,7 @@ class VideoRepositoryIT {
                 .isEqualTo(creator.getUsername());
 
         assertThat(video.getCategory())
-                .isEqualTo(category.getName());
+                .isEqualTo(VIDEO_CATEGORY_NAME);
     }
 
     @Test
@@ -77,15 +75,15 @@ class VideoRepositoryIT {
         var video = saveVideo(generateVideo());
 
         assertThat(video.getCategory())
-                .isEqualTo(CATEGORY_NAME);
+                .isEqualTo(VIDEO_CATEGORY_NAME);
 
-        video.setCategory(CATEGORY_UPDATED_NAME);
+        video.setCategory(VIDEO_CATEGORY_UPDATED_NAME);
 
         var updatedVideo = saveVideo(video);
 
         assertThat(updatedVideo.getCategory())
                 .isNotNull()
-                .isEqualTo(CATEGORY_UPDATED_NAME);
+                .isEqualTo(VIDEO_CATEGORY_UPDATED_NAME);
     }
 
     @Test
