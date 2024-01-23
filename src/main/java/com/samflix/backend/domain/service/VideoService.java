@@ -14,4 +14,5 @@ public interface VideoService {
     Video update(String videoId, UpdateVideoDto updateVideoDto);
     Mono<Void> delete(String videoId);
 
+    void deleteAllVideosByUser(String userId);
 }

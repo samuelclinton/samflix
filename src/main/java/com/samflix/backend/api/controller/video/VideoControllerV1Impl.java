@@ -29,11 +29,7 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
     }
 
     @Override
-    @PutMapping(
-            value = "/{videoId}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PutMapping(value = "/{videoId}", consumes = JSON, produces = JSON)
     @ResponseStatus(HttpStatus.OK)
     public Video update(@PathVariable String videoId, @RequestBody @Valid UpdateVideoDto updateVideoDto) {
         return videoService.update(videoId, updateVideoDto);
@@ -50,9 +46,7 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
     }
 
     @Override
-    @GetMapping(
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @GetMapping(produces = JSON)
     @ResponseStatus(HttpStatus.OK)
     public Page<Video> list(Pageable pageable) {
         return null;
@@ -66,10 +60,7 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
     }
 
     @Override
-    @GetMapping(
-            value = "/statistics",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @GetMapping(value = "/statistics", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Report statistics() {
         return null;
