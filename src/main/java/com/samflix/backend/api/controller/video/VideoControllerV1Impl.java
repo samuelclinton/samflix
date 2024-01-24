@@ -4,13 +4,14 @@ import com.samflix.backend.api.controller.model.NewVideoDto;
 import com.samflix.backend.api.controller.model.UpdateVideoDto;
 import com.samflix.backend.domain.model.Report;
 import com.samflix.backend.domain.model.Video;
+import com.samflix.backend.domain.repository.filter.VideoFilter;
 import com.samflix.backend.domain.service.VideoService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -45,8 +46,8 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
     @Override
     @GetMapping(produces = JSON)
     @ResponseStatus(HttpStatus.OK)
-    public Page<Video> list(Pageable pageable) {
-        return null;
+    public Flux<Video> list(VideoFilter filter, Pageable pageable) {
+        return videoService.getAllVideos(filter, pageable);
     }
 
     @Override

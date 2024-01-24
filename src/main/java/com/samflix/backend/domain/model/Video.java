@@ -5,7 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -20,7 +20,7 @@ public class Video {
     @EqualsAndHashCode.Include
     private String id;
 
-    private Instant creationDate;
+    private LocalDate creationDate;
     private String file;
     private String title;
     private String description;
@@ -39,7 +39,7 @@ public class Video {
     }
 
     public Video(NewVideoDto newVideoDto, String fileName) {
-        this.creationDate = Instant.now();
+        this.creationDate = LocalDate.now();
         this.file = fileName;
         this.title = newVideoDto.getTitle();
         this.description = newVideoDto.getDescription();

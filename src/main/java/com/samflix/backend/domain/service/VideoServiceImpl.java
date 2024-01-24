@@ -8,6 +8,8 @@ import com.samflix.backend.domain.model.User;
 import com.samflix.backend.domain.model.Video;
 import com.samflix.backend.domain.model.ViewStats;
 import com.samflix.backend.domain.repository.VideoRepository;
+import com.samflix.backend.domain.repository.filter.VideoFilter;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -61,6 +63,11 @@ public class VideoServiceImpl implements VideoService {
         return videoRepository.findById(videoId)
                 .switchIfEmpty(Mono.error(new VideoNotFoundException(videoId)))
                 .flatMap(videoRepository::delete);
+    }
+
+    @Override
+    public Flux<Video> getAllVideos(VideoFilter filter, Pageable pageable) {
+        return videoRepository.findByFilter(filter, pageable);
     }
 
     @Override
