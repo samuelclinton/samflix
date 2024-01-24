@@ -3,11 +3,15 @@ package com.samflix.backend.api.controller.user;
 import com.samflix.backend.api.controller.model.LikeDto;
 import com.samflix.backend.api.controller.model.UsernameDto;
 import com.samflix.backend.domain.model.User;
+import com.samflix.backend.domain.model.Video;
+import com.samflix.backend.domain.service.RecommendationService;
 import com.samflix.backend.domain.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -17,6 +21,7 @@ public class UserControllerV1Impl implements UserControllerV1 {
     private static final String JSON = MediaType.APPLICATION_JSON_VALUE;
 
     private final UserService userService;
+    private final RecommendationService recommendationService;
 
     @Override
     @PostMapping(consumes = JSON, produces = JSON)
@@ -61,8 +66,15 @@ public class UserControllerV1Impl implements UserControllerV1 {
         userService.dislike(userId, videoId);
     }
 
-    public UserControllerV1Impl(UserService userService) {
+    @Override
+    @GetMapping("/{userId}/recommendations")
+    public Flux<Video> getRecommendations(@PathVariable String userId, Pageable pageable) {
+        return recommendationService.getRecommendedVideos(userId, pageable);
+    }
+
+    public UserControllerV1Impl(UserService userService, RecommendationService recommendationService) {
         this.userService = userService;
+        this.recommendationService = recommendationService;
     }
 
 }

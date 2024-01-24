@@ -3,9 +3,12 @@ package com.samflix.backend.api.controller.user;
 import com.samflix.backend.api.controller.model.LikeDto;
 import com.samflix.backend.api.controller.model.UsernameDto;
 import com.samflix.backend.domain.model.User;
+import com.samflix.backend.domain.model.Video;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Pageable;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static com.samflix.backend.utils.OpenApiSchemaExamples.ID_EXAMPLE;
@@ -35,5 +38,9 @@ public interface UserControllerV1 {
             description = "Remove um vídeo da lista de vídeos curtidos pelo usuário")
     void dislikeVideo(@Parameter(description = "O ID de um usuário", example = ID_EXAMPLE) String userId,
                             @Parameter(description = "O ID do vídeo a ser removido", example = ID_EXAMPLE) String videoId);
+
+    @Operation(summary = "Retorna uma lista de vídeos recomendados", description = "Retorna uma lista de vídeos recomendados")
+    Flux<Video> getRecommendations(@Parameter(description = "O ID de um usuário", example = ID_EXAMPLE) String userId,
+                                   Pageable pageable);
 
 }
