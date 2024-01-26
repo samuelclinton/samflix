@@ -1,4 +1,4 @@
-package com.samflix.backend.core.validation;
+package com.samflix.backend.config.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

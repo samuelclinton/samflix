@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import static com.samflix.backend.utils.OpenApiSchemaExamples.ID_EXAMPLE;
+import static com.samflix.backend.config.springdoc.OpenApiSchemaExamples.ID_EXAMPLE;
 
 @Tag(name = "Likes")
 public interface VideoLikeControllerV1 {

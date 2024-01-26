@@ -1,6 +1,6 @@
 package com.samflix.backend.api.controller.model;
 
-import com.samflix.backend.core.validation.FileContentType;
+import com.samflix.backend.config.validation.FileContentType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;

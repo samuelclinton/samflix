@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import static com.samflix.backend.utils.OpenApiSchemaExamples.ID_EXAMPLE;
+import static com.samflix.backend.config.springdoc.OpenApiSchemaExamples.ID_EXAMPLE;
 
 @Tag(name = "Videos")
 public interface VideoControllerV1 {

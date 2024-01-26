@@ -1,4 +1,4 @@
-package com.samflix.backend.utils;
+package com.samflix.backend.config.springdoc;
 
 public abstract class OpenApiSchemaExamples {
 

@@ -1,4 +1,4 @@
-package com.samflix.backend.core.springdoc;
+package com.samflix.backend.config.springdoc;
 
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
