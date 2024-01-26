@@ -6,6 +6,6 @@ import reactor.core.publisher.Flux;
 
 public interface RecommendationService {
 
-    Flux<Video> getRecommendedVideos(String userId, Pageable pageable);
+    Flux<Video> getRecommendedVideos(Pageable pageable);
 
 }

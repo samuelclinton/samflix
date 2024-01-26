@@ -16,7 +16,6 @@ public class Like {
 
     @Id
     private String id;
-    private String userId;
     private String videoId;
     private String videoCategory;
 

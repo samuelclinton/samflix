@@ -4,7 +4,6 @@ import com.samflix.backend.api.controller.model.NewVideoDto;
 import com.samflix.backend.api.controller.model.UpdateVideoDto;
 import com.samflix.backend.domain.exception.VideoNotFoundException;
 import com.samflix.backend.domain.model.Report;
-import com.samflix.backend.domain.model.User;
 import com.samflix.backend.domain.model.Video;
 import com.samflix.backend.domain.model.ViewStats;
 import com.samflix.backend.domain.repository.VideoRepository;
@@ -19,7 +18,6 @@ import java.util.UUID;
 @Service
 public class VideoServiceImpl implements VideoService {
 
-    private final UserService userService;
     private final VideoRepository videoRepository;
 
     @Override
@@ -31,13 +29,13 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public void addLike(Video video) {
-        video.addLike();
+        video.like();
         videoRepository.save(video).block();
     }
 
     @Override
     public void removeLike(Video video) {
-        video.removeLike();
+        video.dislike();
         videoRepository.save(video).block();
     }
 
@@ -71,23 +69,9 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public void deleteAllVideosByUser(String userId) {
-        User user = userService.get(userId);
-        if (user != null) {
-            videoRepository.findAllByCreatorUsername(user.getUsername())
-                    .collectList()
-                    .flatMapMany(videos -> {
-                        Flux<Video> videoFlux = Flux.fromIterable(videos);
-                        return videoRepository.deleteAll(videoFlux);
-                    })
-                    .subscribe();
-        }
-    }
-
-    @Override
     public Mono<Report> getVideoStats() {
         Mono<Long> totalVideos = videoRepository.count();
-        Mono<Long> likedVideos = videoRepository.countByLikesGreaterThan(0L);
+        Mono<Long> likedVideos = videoRepository.countByLikedTrue();
         Mono<ViewStats> viewStats = videoRepository.viewStats();
 
         return Mono.zip(totalVideos, likedVideos, viewStats)
@@ -97,8 +81,7 @@ public class VideoServiceImpl implements VideoService {
                         tuple.getT3().getAverageViews()));
     }
 
-    public VideoServiceImpl(UserService userService, VideoRepository videoRepository) {
-        this.userService = userService;
+    public VideoServiceImpl(VideoRepository videoRepository) {
         this.videoRepository = videoRepository;
     }
 

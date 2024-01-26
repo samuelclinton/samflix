@@ -13,8 +13,7 @@ public interface VideoRepository extends ReactiveMongoRepository<Video, String>,
     @Aggregation("{ $group: { _id: null, totalViews: { $sum: '$views' }, averageViews: { $avg: '$views' } } }")
     Mono<ViewStats> viewStats();
 
-    Flux<Video> findAllByCreatorUsername(String creatorUsername);
-    Mono<Long> countByLikesGreaterThan(Long minimumLikes);
+    Mono<Long> countByLikedTrue();
     Flux<Video> findTopLikedVideosByCategory(String category, Pageable pageable);
 
 }

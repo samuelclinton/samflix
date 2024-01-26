@@ -20,6 +20,5 @@ public interface VideoService {
 
     Flux<Video> getAllVideos(VideoFilter filter, Pageable pageable);
 
-    void deleteAllVideosByUser(String userId);
     Mono<Report> getVideoStats();
 }

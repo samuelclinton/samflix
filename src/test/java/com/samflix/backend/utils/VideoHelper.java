@@ -1,11 +1,8 @@
 package com.samflix.backend.utils;
 
 import com.samflix.backend.domain.model.Video;
-import com.samflix.backend.domain.model.VideoStatus;
 
 import java.util.UUID;
-
-import static com.samflix.backend.utils.UserHelper.generateUser;
 
 public abstract class VideoHelper {
 
@@ -22,11 +19,9 @@ public abstract class VideoHelper {
                 .id(VIDEO_ID)
                 .title(VIDEO_TITLE)
                 .description(VIDEO_DESCRIPTION)
-                .file(VIDEO_FILE)
-                .status(VideoStatus.PUBLISHED)
+                .url(VIDEO_FILE)
                 .views(10L)
-                .likes(5L)
-                .creatorUsername(generateUser().getUsername())
+                .liked(false)
                 .category(VIDEO_CATEGORY_NAME)
                 .build();
     }

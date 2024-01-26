@@ -20,31 +20,29 @@ public class Video {
     @EqualsAndHashCode.Include
     private String id;
 
-    private LocalDate creationDate;
-    private String file;
     private String title;
     private String description;
-    private VideoStatus status = VideoStatus.PUBLISHED;
     private Long views = 0L;
-    private Long likes = 0L;
-    private String creatorUsername;
+    private Boolean liked;
     private String category;
+    private String url;
+    private LocalDate creationDate;
 
-    public void addLike() {
-        this.likes++;
+    public void like() {
+        this.liked = true;
     }
 
-    public void removeLike() {
-        this.likes--;
+    public void dislike() {
+        this.liked = false;
     }
 
-    public Video(NewVideoDto newVideoDto, String fileName) {
-        this.creationDate = LocalDate.now();
-        this.file = fileName;
+    public Video(NewVideoDto newVideoDto, String url) {
         this.title = newVideoDto.getTitle();
         this.description = newVideoDto.getDescription();
-        this.creatorUsername = newVideoDto.getCreatorUsername();
         this.category = newVideoDto.getCategory();
+        this.liked = false;
+        this.url = url;
+        this.creationDate = LocalDate.now();
     }
 
 }

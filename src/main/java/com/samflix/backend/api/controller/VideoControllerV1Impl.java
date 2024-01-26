@@ -1,10 +1,10 @@
-package com.samflix.backend.api.controller.video;
+package com.samflix.backend.api.controller;
 
 import com.samflix.backend.api.controller.model.NewVideoDto;
 import com.samflix.backend.api.controller.model.UpdateVideoDto;
-import com.samflix.backend.domain.model.Report;
 import com.samflix.backend.domain.model.Video;
 import com.samflix.backend.domain.repository.filter.VideoFilter;
+import com.samflix.backend.domain.service.RecommendationService;
 import com.samflix.backend.domain.service.VideoService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +21,7 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
     private static final String JSON = MediaType.APPLICATION_JSON_VALUE;
 
     private final VideoService videoService;
+    private final RecommendationService recommendationService;
 
     @Override
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = JSON)
@@ -51,21 +52,21 @@ public class VideoControllerV1Impl implements VideoControllerV1 {
     }
 
     @Override
+    @GetMapping("/recommendations")
+    public Flux<Video> getRecommendations(Pageable pageable) {
+        return recommendationService.getRecommendedVideos(pageable);
+    }
+
+    @Override
     @DeleteMapping("/{videoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<Void> delete(@PathVariable String videoId) {
         return videoService.delete(videoId);
     }
 
-    @Override
-    @GetMapping(value = "/statistics", produces = JSON)
-    @ResponseStatus(HttpStatus.OK)
-    public Mono<Report> statistics() {
-        return videoService.getVideoStats();
-    }
-
-    public VideoControllerV1Impl(VideoService videoService) {
+    public VideoControllerV1Impl(VideoService videoService, RecommendationService recommendationService) {
         this.videoService = videoService;
+        this.recommendationService = recommendationService;
     }
 
 }

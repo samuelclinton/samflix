@@ -1,8 +1,7 @@
-package com.samflix.backend.api.controller.video;
+package com.samflix.backend.api.controller;
 
 import com.samflix.backend.api.controller.model.NewVideoDto;
 import com.samflix.backend.api.controller.model.UpdateVideoDto;
-import com.samflix.backend.domain.model.Report;
 import com.samflix.backend.domain.model.Video;
 import com.samflix.backend.domain.repository.filter.VideoFilter;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,10 +29,10 @@ public interface VideoControllerV1 {
     @Operation(summary = "Lista os vídeos", description = "Lista os vídeos")
     Flux<Video> list(VideoFilter filter, Pageable pageable);
 
+    @Operation(summary = "Retorna uma lista de vídeos recomendados", description = "Retorna uma lista de vídeos recomendados")
+    Flux<Video> getRecommendations(Pageable pageable);
+
     @Operation(summary = "Exclui um vídeo", description = "Exclui um vídeo")
     Mono<Void> delete(@Parameter(description = "O ID de um vídeo", example = ID_EXAMPLE) String videoId);
-
-    @Operation(summary = "Exibe um relatório", description = "Exibe um relatório de estatísticas sobre os vídeos")
-    Mono<Report> statistics();
 
 }

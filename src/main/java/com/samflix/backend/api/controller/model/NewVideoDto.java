@@ -1,6 +1,7 @@
 package com.samflix.backend.api.controller.model;
 
 import com.samflix.backend.core.validation.FileContentType;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
@@ -10,9 +11,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Builder
 public class NewVideoDto {
 
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String description;
-    private String creatorUsername;
+
+    @NotBlank
     private String category;
 
     @NotNull

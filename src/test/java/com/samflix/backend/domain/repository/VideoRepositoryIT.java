@@ -1,7 +1,6 @@
 package com.samflix.backend.domain.repository;
 
 import com.samflix.backend.domain.model.Video;
-import com.samflix.backend.domain.model.VideoStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import reactor.core.publisher.Mono;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import static com.samflix.backend.utils.UserHelper.generateUser;
 import static com.samflix.backend.utils.VideoHelper.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,7 +29,6 @@ class VideoRepositoryIT {
     @Test
     void shouldSaveVideo() {
 
-        var creator = generateUser();
         var video = saveVideo(generateVideo());
 
         assertThat(video)
@@ -44,11 +41,8 @@ class VideoRepositoryIT {
         assertThat(video.getTitle())
                 .isEqualTo(VIDEO_TITLE);
 
-        assertThat(video.getFile())
+        assertThat(video.getUrl())
                 .isEqualTo(VIDEO_FILE);
-
-        assertThat(video.getCreatorUsername())
-                .isEqualTo(creator.getUsername());
 
         assertThat(video.getCategory())
                 .isEqualTo(VIDEO_CATEGORY_NAME);
@@ -96,11 +90,9 @@ class VideoRepositoryIT {
                 .id("655e64277caa1eae06196427")
                 .title("Second video")
                 .description("Second video description")
-                .file(UUID.fromString("88ec77f6-3ffc-4bfc-941a-fb0000d019b6") + ".mp4")
-                .status(VideoStatus.PUBLISHED)
+                .url(UUID.fromString("88ec77f6-3ffc-4bfc-941a-fb0000d019b6") + ".mp4")
                 .views(15L)
-                .likes(10L)
-                .creatorUsername(generateUser().getUsername())
+                .liked(false)
                 .category("Second video category")
                 .build());
 
