@@ -1,12 +1,21 @@
 package com.samflix.backend.infrastructure.persistence.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Document(collection = "likes")
 public class LikeDatabaseEntity {
 
     @Id
+    @EqualsAndHashCode.Include
     private String id;
     private String videoId;
     private String videoCategory;

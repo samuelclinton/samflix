@@ -1,5 +1,7 @@
 package com.samflix.backend.utils;
 
+import com.samflix.backend.infrastructure.persistence.model.VideoDatabaseEntity;
+
 import java.util.UUID;
 
 public abstract class VideoHelper {
@@ -12,16 +14,16 @@ public abstract class VideoHelper {
     public static final String VIDEO_CATEGORY_NAME = "Category";
     public static final String VIDEO_CATEGORY_UPDATED_NAME = "New category name";
 
-//    public static Video generateVideo() {
-//        return Video.builder()
-//                .id(VIDEO_ID)
-//                .title(VIDEO_TITLE)
-//                .description(VIDEO_DESCRIPTION)
-//                .url(VIDEO_FILE)
-//                .views(10L)
-//                .liked(false)
-//                .category(VIDEO_CATEGORY_NAME)
-//                .build();
-//    }
+    public static VideoDatabaseEntity generateVideo() {
+        return VideoDatabaseEntity.builder()
+                .id(VIDEO_ID)
+                .title(VIDEO_TITLE)
+                .description(VIDEO_DESCRIPTION)
+                .fileName(VIDEO_FILE)
+                .views(10L)
+                .liked(false)
+                .category(VIDEO_CATEGORY_NAME)
+                .build();
+    }
 
 }

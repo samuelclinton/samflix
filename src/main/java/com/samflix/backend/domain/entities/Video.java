@@ -68,9 +68,8 @@ public class Video {
         return liked;
     }
 
-    public Video setLiked(Boolean liked) {
+    public void setLiked(Boolean liked) {
         this.liked = liked;
-        return this;
     }
 
     public String getCategory() {

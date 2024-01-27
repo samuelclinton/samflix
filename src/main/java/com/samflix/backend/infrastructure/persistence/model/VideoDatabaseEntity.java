@@ -1,15 +1,24 @@
 package com.samflix.backend.infrastructure.persistence.model;
 
 import com.samflix.backend.domain.entities.Video;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Document(collection = "videos")
 public class VideoDatabaseEntity {
 
     @Id
+    @EqualsAndHashCode.Include
     private String id;
     private String title;
     private String description;
@@ -18,9 +27,6 @@ public class VideoDatabaseEntity {
     private String category;
     private String fileName;
     private LocalDate creationDate;
-
-    public VideoDatabaseEntity() {
-    }
 
     public VideoDatabaseEntity(Video video) {
         this.id = video.getId();
