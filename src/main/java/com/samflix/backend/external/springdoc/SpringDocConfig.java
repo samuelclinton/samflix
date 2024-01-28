@@ -16,9 +16,7 @@ public class SpringDocConfig {
     public OpenAPI openAPI() {
         var tags = new ArrayList<Tag>();
         tags.add(new Tag().name("Videos").description("Gerencia os vídeos"));
-        tags.add(new Tag().name("Categories").description("Gerencia as categorias"));
-        tags.add(new Tag().name("Users").description("Gerencia os usuários"));
-        tags.add(new Tag().name("Status").description("Prove informação sobre o status do serviço"));
+        tags.add(new Tag().name("Likes").description("Gerencia os likes"));
         return new OpenAPI()
                 .info(new Info()
                         .title("Samflix")
