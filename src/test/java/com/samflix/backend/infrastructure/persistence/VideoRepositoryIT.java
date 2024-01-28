@@ -1,6 +1,5 @@
-package com.samflix.backend.domain.repository;
+package com.samflix.backend.infrastructure.persistence;
 
-import com.samflix.backend.infrastructure.persistence.VideoRepository;
 import com.samflix.backend.infrastructure.persistence.model.VideoDatabaseEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ class VideoRepositoryIT {
     @Test
     void shouldSaveVideo() {
 
-        var video = saveVideo(generateVideo());
+        var video = saveVideo(generateVideoDatabaseEntity());
 
         assertThat(video)
                 .isNotNull()
@@ -50,7 +49,7 @@ class VideoRepositoryIT {
 
     @Test
     void shouldUpdateVideoTitle() {
-        var video = saveVideo(generateVideo());
+        var video = saveVideo(generateVideoDatabaseEntity());
 
         assertThat(video.getTitle())
                 .isEqualTo(VIDEO_TITLE);
@@ -66,7 +65,7 @@ class VideoRepositoryIT {
 
     @Test
     void shouldUpdateVideoCategory() {
-        var video = saveVideo(generateVideo());
+        var video = saveVideo(generateVideoDatabaseEntity());
 
         assertThat(video.getCategory())
                 .isEqualTo(VIDEO_CATEGORY_NAME);
@@ -84,7 +83,7 @@ class VideoRepositoryIT {
     void shouldListVideos() {
         var videos = new ArrayList<VideoDatabaseEntity>();
 
-        videos.add(generateVideo());
+        videos.add(generateVideoDatabaseEntity());
         videos.add(VideoDatabaseEntity
                 .builder()
                 .id("655e64277caa1eae06196427")
@@ -110,7 +109,7 @@ class VideoRepositoryIT {
 
     @Test
     void shouldDeleteVideo() {
-        var video = saveVideo(generateVideo());
+        var video = saveVideo(generateVideoDatabaseEntity());
 
         assertThat(video.getId())
                 .isNotNull()
