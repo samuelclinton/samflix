@@ -1,0 +1,20 @@
+networks:
+  samflix-network:
+    driver: bridge
+services:
+  samflix-mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - samflix-network
+  samflix:
+    image: samuelclinton/samflix:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - samflix-network
+    environment:
+      WAIT_HOSTS: samflix-mongodb:27017
+      DB_HOST: samflix-mongodb
+    command: sh -c "/wait && java -jar /app/samflix.jar"
