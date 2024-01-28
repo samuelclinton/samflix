@@ -1,4 +1,4 @@
-![Fiapark](https://github.com/samuelclinton/samflix/blob/main/img/logo.png)
+![Samflix](https://github.com/samuelclinton/samflix/blob/main/img/logo.png)
 
 O projeto Samflix proposto para a pós-graduação [FIAP](https://www.fiap.com.br/) em [Arquitetura e desenvolvimento Java](https://postech.fiap.com.br/curso/arquitetura-desenvolvimento-java) consiste em uma API de gerenciamento de vídeos. O projeto roda totalmente dockerizado em containers e pode ser executado utilizando o docker compose para testes e avaliações.
 
