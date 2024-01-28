@@ -20,7 +20,7 @@ public class VideoGatewayImpl implements VideoGateway {
         this.videoRepository = videoRepository;
     }
 
-    private Mono<VideoDatabaseEntity> findVideoByIdOrThrowException(String videoId) {
+    public Mono<VideoDatabaseEntity> findVideoByIdOrThrowException(String videoId) {
         return videoRepository.findById(videoId)
                 .switchIfEmpty(Mono.error(new VideoNotFoundException("Nenhum vídeo encontrado com o ID " + videoId)));
     }
