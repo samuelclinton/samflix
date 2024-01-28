@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/samflix
+      uri: mongodb://${db.host:localhost}:27017/samflix
       database: "samflix"
       auto-index-creation: true
   servlet:
