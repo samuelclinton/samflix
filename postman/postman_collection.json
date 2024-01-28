@@ -1,0 +1,324 @@
+{
+	"info": {
+		"_postman_id": "516e42a9-d110-424e-8ddd-ab4f4e357472",
+		"name": "Samflix",
+		"description": "Coleção do projeto Tech Challenge - Fase 4 da aplicação de vídeos Samflix",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27349627"
+	},
+	"item": [
+		{
+			"name": "Videos",
+			"item": [
+				{
+					"name": "Criar vídeo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"videoId\", jsonData.id);\r",
+									"postman.setEnvironmentVariable(\"videoFileName\", jsonData.fileName);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Gameplay de Minecraft",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Matando o Ender dragon",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "Games",
+									"type": "text"
+								},
+								{
+									"key": "videoFile",
+									"type": "file",
+									"src": "postman-cloud:///1eeba279-036b-47a0-a607-2d42beaad136"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/v1/videos",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar vídeo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Novo título\",\r\n    \"description\": \"Descrição atualizada\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/videos/{{videoId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"videos",
+								"{{videoId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir vídeo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/videos/{{videoId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"videos",
+								"{{videoId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/videos",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"videos"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "property",
+									"value": "creationDate",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "creationDate",
+									"value": "2024-01-27",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "islandia",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Play",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/videos/{{videoFileName}}/play",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"videos",
+								"{{videoFileName}}",
+								"play"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recomendações",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/videos/recommendations?property=creationDate&order=desc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"videos",
+								"recommendations"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "property",
+									"value": "creationDate"
+								},
+								{
+									"key": "order",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Likes",
+			"item": [
+				{
+					"name": "Like",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/videos/{{videoId}}/like",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"videos",
+								"{{videoId}}",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dislike",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/videos/{{videoId}}/like",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"videos",
+								"{{videoId}}",
+								"like"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Estatísticas",
+			"item": [
+				{
+					"name": "Estatísticas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/videos/statistics",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"videos",
+								"statistics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
